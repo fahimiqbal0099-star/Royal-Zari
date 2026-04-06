@@ -371,3 +371,102 @@ function callUs() {
 function emailUs() {
     window.location.href = 'mailto:Fahimiqbal0099@gmail.com?subject=Product%20Inquiry&body=Hello%20Royal%20Zari,%20I%20am%20interested%20in%20your%20products.';
 }
+
+// Image Upload Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle file input changes
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function(e) {
+            handleImageUpload(e.target.id, e.target.files[0]);
+        });
+    });
+});
+
+function handleImageUpload(inputId, file) {
+    if (!file) return;
+
+    const uploadBox = document.querySelector(`[data-product="${inputId}"]`);
+    const placeholder = uploadBox.querySelector('.upload-placeholder');
+    const preview = uploadBox.querySelector('.upload-preview');
+    const downloadBtn = uploadBox.querySelector('.btn-download');
+
+    // Create file reader for preview
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        placeholder.style.display = 'none';
+        downloadBtn.style.display = 'inline-block';
+
+        // Store the file data for download
+        preview.dataset.fileData = e.target.result;
+        preview.dataset.fileName = file.name;
+    };
+    reader.readAsDataURL(file);
+}
+
+function downloadImage(productId, filename) {
+    const preview = document.querySelector(`[data-product="${productId}"] .upload-preview`);
+    if (!preview.dataset.fileData) return;
+
+    // Create download link
+    const link = document.createElement('a');
+    link.href = preview.dataset.fileData;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Show success message
+    showNotification(`Downloaded ${filename} successfully!`, 'success');
+}
+
+function showNotification(message, type) {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => notification.remove());
+
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#28a745' : '#dc3545'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 1000;
+        font-weight: 600;
+        animation: slideIn 0.3s ease;
+    `;
+
+    document.body.appendChild(notification);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Add notification animations to CSS
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);

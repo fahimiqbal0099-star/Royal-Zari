@@ -209,47 +209,126 @@
                 </div>
             </div>
 
-            <!-- Customer Testimonials Section -->
-            <div class="testimonials-section">
-                <h3>What Our Customers Say</h3>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <p>"Beautiful craftsmanship! The zari work on my wedding lehenga was exquisite. Highly recommend Royal Zari for traditional embroidery."</p>
-                            <div class="testimonial-author">
-                                <strong>Priya Sharma</strong>
-                                <span>Kolkata</span>
+            <!-- Product Image Upload Section -->
+            <div class="product-upload-section">
+                <h3>📸 Upload Your Product Images</h3>
+                <p class="upload-instructions">
+                    Upload your product photos here to preview them, then download and upload to GitHub for permanent storage.
+                </p>
+
+                <div class="upload-grid">
+                    <div class="upload-item">
+                        <h4>Silk Saree</h4>
+                        <div class="upload-box" data-product="silk-saree-1">
+                            <input type="file" id="silk-saree-1" accept="image/*" style="display: none;">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <p>Click to upload<br>silk-saree-1.jpg</p>
                             </div>
+                            <img class="upload-preview" style="display: none;" alt="Preview">
                         </div>
-                        <div class="testimonial-rating">
-                            ⭐⭐⭐⭐⭐
+                        <div class="upload-actions">
+                            <button class="btn-upload" onclick="document.getElementById('silk-saree-1').click()">Choose Image</button>
+                            <button class="btn-download" onclick="downloadImage('silk-saree-1', 'silk-saree-1.jpg')" style="display: none;">Download</button>
                         </div>
                     </div>
 
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <p>"Got my saree embroidered here. The quality is outstanding and the price is very reasonable. Will definitely order again!"</p>
-                            <div class="testimonial-author">
-                                <strong>Rina Das</strong>
-                                <span>North 24 Pgs</span>
+                    <div class="upload-item">
+                        <h4>Velvet Dupatta</h4>
+                        <div class="upload-box" data-product="velvet-dupatta">
+                            <input type="file" id="velvet-dupatta" accept="image/*" style="display: none;">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <p>Click to upload<br>velvet-dupatta.jpg</p>
                             </div>
+                            <img class="upload-preview" style="display: none;" alt="Preview">
                         </div>
-                        <div class="testimonial-rating">
-                            ⭐⭐⭐⭐⭐
+                        <div class="upload-actions">
+                            <button class="btn-upload" onclick="document.getElementById('velvet-dupatta').click()">Choose Image</button>
+                            <button class="btn-download" onclick="downloadImage('velvet-dupatta', 'velvet-dupatta.jpg')" style="display: none;">Download</button>
                         </div>
                     </div>
 
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <p>"Professional service and authentic traditional zari work. The dupatta I ordered exceeded my expectations!"</p>
-                            <div class="testimonial-author">
-                                <strong>Meera Patel</strong>
-                                <span>Howrah</span>
+                    <div class="upload-item">
+                        <h4>Embroidered Kurta</h4>
+                        <div class="upload-box" data-product="embroidered-kurta">
+                            <input type="file" id="embroidered-kurta" accept="image/*" style="display: none;">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <p>Click to upload<br>embroidered-kurta.jpg</p>
                             </div>
+                            <img class="upload-preview" style="display: none;" alt="Preview">
                         </div>
-                        <div class="testimonial-rating">
-                            ⭐⭐⭐⭐⭐
+                        <div class="upload-actions">
+                            <button class="btn-upload" onclick="document.getElementById('embroidered-kurta').click()">Choose Image</button>
+                            <button class="btn-download" onclick="downloadImage('embroidered-kurta', 'embroidered-kurta.jpg')" style="display: none;">Download</button>
                         </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <h4>Wedding Lehenga</h4>
+                        <div class="upload-box" data-product="wedding-lehenga">
+                            <input type="file" id="wedding-lehenga" accept="image/*" style="display: none;">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <p>Click to upload<br>wedding-lehenga.jpg</p>
+                            </div>
+                            <img class="upload-preview" style="display: none;" alt="Preview">
+                        </div>
+                        <div class="upload-actions">
+                            <button class="btn-upload" onclick="document.getElementById('wedding-lehenga').click()">Choose Image</button>
+                            <button class="btn-download" onclick="downloadImage('wedding-lehenga', 'wedding-lehenga.jpg')" style="display: none;">Download</button>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <h4>Zari Fabric</h4>
+                        <div class="upload-box" data-product="zari-fabric">
+                            <input type="file" id="zari-fabric" accept="image/*" style="display: none;">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <p>Click to upload<br>zari-fabric.jpg</p>
+                            </div>
+                            <img class="upload-preview" style="display: none;" alt="Preview">
+                        </div>
+                        <div class="upload-actions">
+                            <button class="btn-upload" onclick="document.getElementById('zari-fabric').click()">Choose Image</button>
+                            <button class="btn-download" onclick="downloadImage('zari-fabric', 'zari-fabric.jpg')" style="display: none;">Download</button>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <h4>Zari Accessories</h4>
+                        <div class="upload-box" data-product="zari-accessories">
+                            <input type="file" id="zari-accessories" accept="image/*" style="display: none;">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <p>Click to upload<br>zari-accessories.jpg</p>
+                            </div>
+                            <img class="upload-preview" style="display: none;" alt="Preview">
+                        </div>
+                        <div class="upload-actions">
+                            <button class="btn-upload" onclick="document.getElementById('zari-accessories').click()">Choose Image</button>
+                            <button class="btn-download" onclick="downloadImage('zari-accessories', 'zari-accessories.jpg')" style="display: none;">Download</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="upload-instructions-panel">
+                    <h4>📋 How to Upload Images to Your Website:</h4>
+                    <ol>
+                        <li>Click "Choose Image" for each product above</li>
+                        <li>Select your product photo from your device</li>
+                        <li>Preview will show - click "Download" to save the image</li>
+                        <li>Go to <a href="https://github.com/fahimiqbal0099-star/Royal-Zari" target="_blank">GitHub Repository</a></li>
+                        <li>Click "images" folder → "Add file" → "Upload files"</li>
+                        <li>Upload the downloaded images with exact filenames</li>
+                        <li>Click "Commit changes" - your website updates automatically!</li>
+                    </ol>
+                    <div class="github-link">
+                        <a href="https://github.com/fahimiqbal0099-star/Royal-Zari" target="_blank" class="btn-github">
+                            🐙 Go to GitHub Repository
+                        </a>
                     </div>
                 </div>
             </div>
