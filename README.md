@@ -1,5 +1,49 @@
 # Royal Zari - Premium Embroidery Website
 
+## � Order Management System
+
+### How You'll Know When Someone Orders:
+
+#### 1. **Instant WhatsApp Notifications**
+- When a customer places an order, WhatsApp automatically opens with a complete order message
+- Includes customer details, order items, total amount, and delivery address
+- Message format:
+```
+🆕 NEW ORDER RECEIVED!
+
+📦 Order ID: RZ12345678
+👤 Customer: John Doe
+📞 Phone: +91-9876543210
+📧 Email: john@example.com
+📍 Address: 123 Main St, Kolkata
+
+🛒 Order Details:
+• Silk Saree with Gold Zari (x1) - ₹15,999
+• Velvet Dupatta (x1) - ₹8,999
+
+💰 Total Amount: ₹24,998
+📝 Special Instructions: Handle with care
+
+⏰ Order Time: 12/19/2024, 2:30:45 PM
+```
+
+#### 2. **Order Management Dashboard**
+- Click **"📋 Orders"** in the navigation menu
+- View all orders with customer details
+- See order status (Pending, Confirmed, Shipped, Delivered)
+- Contact customers directly via WhatsApp, Call, or Email
+- Export orders to CSV for record keeping
+
+#### 3. **Notification Badge**
+- Red badge appears next to "Orders" when new orders arrive
+- Shows number of unread orders
+- Updates automatically
+
+#### 4. **Order Storage**
+- All orders saved locally in your browser
+- Includes complete customer information
+- Order history maintained even after browser restart
+
 ## 💰 How to Set Product Prices & Upload Images
 
 ### Step 1: Set Your Product Prices
@@ -34,6 +78,8 @@
 
 ## 🎯 Key Features:
 
+- ✅ **Order Notifications**: Instant WhatsApp alerts for new orders
+- ✅ **Order Management**: Complete dashboard to track and manage orders
 - ✅ **Price Management**: Set prices directly on website
 - ✅ **Image Upload**: Preview and download images with correct names
 - ✅ **Shopping Cart**: Add to cart, quantity selection
