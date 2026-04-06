@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fahimiqbal0099-star.github.io/Royal-Zari/sitemap.xml
