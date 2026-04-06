@@ -372,15 +372,85 @@ function emailUs() {
     window.location.href = 'mailto:Fahimiqbal0099@gmail.com?subject=Product%20Inquiry&body=Hello%20Royal%20Zari,%20I%20am%20interested%20in%20your%20products.';
 }
 
-// Image Upload Functionality
+function updateProductPrice(productImageName, newPrice) {
+    if (!newPrice || newPrice < 0) {
+        showNotification('Please enter a valid price', 'error');
+        return;
+    }
+
+    // Update localStorage with new price
+    let productPrices = JSON.parse(localStorage.getItem('royalZariPrices')) || {};
+    productPrices[productImageName] = parseInt(newPrice);
+    localStorage.setItem('royalZariPrices', JSON.stringify(productPrices));
+
+    // Update the corresponding product card price
+    const productCard = document.querySelector(`[data-product-name*="${productImageName}"]`) ||
+                       document.querySelector(`img[alt*="${productImageName}"]`)?.closest('.product-card');
+
+    if (productCard) {
+        // Update data attribute
+        productCard.setAttribute('data-product-price', newPrice);
+
+        // Update displayed price
+        const priceElement = productCard.querySelector('.price');
+        if (priceElement) {
+            priceElement.textContent = '₹' + parseInt(newPrice).toLocaleString();
+        }
+
+        // Update cart if this product is in cart
+        updateCartPrices();
+    }
+
+    showNotification(`Price updated to ₹${parseInt(newPrice).toLocaleString()}`, 'success');
+}
+
+// Load saved prices on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle file input changes
-    document.querySelectorAll('input[type="file"]').forEach(input => {
-        input.addEventListener('change', function(e) {
-            handleImageUpload(e.target.id, e.target.files[0]);
-        });
-    });
+    loadSavedPrices();
 });
+
+function loadSavedPrices() {
+    const savedPrices = JSON.parse(localStorage.getItem('royalZariPrices')) || {};
+
+    // Update price inputs with saved values
+    Object.keys(savedPrices).forEach(productKey => {
+        const input = document.getElementById(`price-${productKey}`);
+        if (input) {
+            input.value = savedPrices[productKey];
+        }
+
+        // Update product cards with saved prices
+        const productCard = document.querySelector(`[data-product-name*="${productKey}"]`) ||
+                           document.querySelector(`img[alt*="${productKey}"]`)?.closest('.product-card');
+
+        if (productCard) {
+            productCard.setAttribute('data-product-price', savedPrices[productKey]);
+            const priceElement = productCard.querySelector('.price');
+            if (priceElement) {
+                priceElement.textContent = '₹' + savedPrices[productKey].toLocaleString();
+            }
+        }
+    });
+}
+
+function updateCartPrices() {
+    // Update cart items with new prices
+    cart.forEach(item => {
+        const productCard = document.querySelector(`[data-product-id="${item.id}"]`);
+        if (productCard) {
+            const currentPrice = productCard.getAttribute('data-product-price');
+            if (currentPrice && currentPrice !== item.price.toString()) {
+                item.price = parseInt(currentPrice);
+            }
+        }
+    });
+
+    // Save updated cart
+    localStorage.setItem('royalZariCart', JSON.stringify(cart));
+
+    // Update cart UI
+    updateCartUI();
+}
 
 function handleImageUpload(inputId, file) {
     if (!file) return;

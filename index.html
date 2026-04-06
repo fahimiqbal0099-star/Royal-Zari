@@ -322,6 +322,11 @@
                             <button class="btn-upload" onclick="document.getElementById('silk-saree-1').click()">Choose Image</button>
                             <button class="btn-download" onclick="downloadImage('silk-saree-1', 'silk-saree-1.jpg')" style="display: none;">Download</button>
                         </div>
+                        <div class="price-input-section">
+                            <label for="price-silk-saree-1">Price (₹):</label>
+                            <input type="number" id="price-silk-saree-1" placeholder="15999" min="0" value="15999">
+                            <button class="btn-update-price" onclick="updateProductPrice('silk-saree-1', document.getElementById('price-silk-saree-1').value)">Update Price</button>
+                        </div>
                     </div>
 
                     <div class="upload-item">
@@ -337,6 +342,11 @@
                         <div class="upload-actions">
                             <button class="btn-upload" onclick="document.getElementById('velvet-dupatta').click()">Choose Image</button>
                             <button class="btn-download" onclick="downloadImage('velvet-dupatta', 'velvet-dupatta.jpg')" style="display: none;">Download</button>
+                        </div>
+                        <div class="price-input-section">
+                            <label for="price-velvet-dupatta">Price (₹):</label>
+                            <input type="number" id="price-velvet-dupatta" placeholder="8999" min="0" value="8999">
+                            <button class="btn-update-price" onclick="updateProductPrice('velvet-dupatta', document.getElementById('price-velvet-dupatta').value)">Update Price</button>
                         </div>
                     </div>
 
@@ -354,6 +364,11 @@
                             <button class="btn-upload" onclick="document.getElementById('embroidered-kurta').click()">Choose Image</button>
                             <button class="btn-download" onclick="downloadImage('embroidered-kurta', 'embroidered-kurta.jpg')" style="display: none;">Download</button>
                         </div>
+                        <div class="price-input-section">
+                            <label for="price-embroidered-kurta">Price (₹):</label>
+                            <input type="number" id="price-embroidered-kurta" placeholder="6499" min="0" value="6499">
+                            <button class="btn-update-price" onclick="updateProductPrice('embroidered-kurta', document.getElementById('price-embroidered-kurta').value)">Update Price</button>
+                        </div>
                     </div>
 
                     <div class="upload-item">
@@ -369,6 +384,11 @@
                         <div class="upload-actions">
                             <button class="btn-upload" onclick="document.getElementById('wedding-lehenga').click()">Choose Image</button>
                             <button class="btn-download" onclick="downloadImage('wedding-lehenga', 'wedding-lehenga.jpg')" style="display: none;">Download</button>
+                        </div>
+                        <div class="price-input-section">
+                            <label for="price-wedding-lehenga">Price (₹):</label>
+                            <input type="number" id="price-wedding-lehenga" placeholder="45999" min="0" value="45999">
+                            <button class="btn-update-price" onclick="updateProductPrice('wedding-lehenga', document.getElementById('price-wedding-lehenga').value)">Update Price</button>
                         </div>
                     </div>
 
@@ -386,6 +406,11 @@
                             <button class="btn-upload" onclick="document.getElementById('zari-fabric').click()">Choose Image</button>
                             <button class="btn-download" onclick="downloadImage('zari-fabric', 'zari-fabric.jpg')" style="display: none;">Download</button>
                         </div>
+                        <div class="price-input-section">
+                            <label for="price-zari-fabric">Price (₹):</label>
+                            <input type="number" id="price-zari-fabric" placeholder="12999" min="0" value="12999">
+                            <button class="btn-update-price" onclick="updateProductPrice('zari-fabric', document.getElementById('price-zari-fabric').value)">Update Price</button>
+                        </div>
                     </div>
 
                     <div class="upload-item">
@@ -402,20 +427,29 @@
                             <button class="btn-upload" onclick="document.getElementById('zari-accessories').click()">Choose Image</button>
                             <button class="btn-download" onclick="downloadImage('zari-accessories', 'zari-accessories.jpg')" style="display: none;">Download</button>
                         </div>
+                        <div class="price-input-section">
+                            <label for="price-zari-accessories">Price (₹):</label>
+                            <input type="number" id="price-zari-accessories" placeholder="3499" min="0" value="3499">
+                            <button class="btn-update-price" onclick="updateProductPrice('zari-accessories', document.getElementById('price-zari-accessories').value)">Update Price</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="upload-instructions-panel">
-                    <h4>📋 How to Upload Images to Your Website:</h4>
+                    <h4>📋 How to Upload Images and Set Prices:</h4>
                     <ol>
-                        <li>Click "Choose Image" for each product above</li>
-                        <li>Select your product photo from your device</li>
-                        <li>Preview will show - click "Download" to save the image</li>
-                        <li>Go to <a href="https://github.com/fahimiqbal0099-star/Royal-Zari" target="_blank">GitHub Repository</a></li>
-                        <li>Click "images" folder → "Add file" → "Upload files"</li>
-                        <li>Upload the downloaded images with exact filenames</li>
-                        <li>Click "Commit changes" - your website updates automatically!</li>
+                        <li><strong>Set Prices:</strong> Enter your desired prices in the "Price (₹)" fields for each product</li>
+                        <li><strong>Upload Images:</strong> Click "Choose Image" for each product to select photos from your device</li>
+                        <li><strong>Preview:</strong> See how your images will look on the website instantly</li>
+                        <li><strong>Download Images:</strong> Click "Download" to save the image with the correct filename</li>
+                        <li><strong>Upload to GitHub:</strong> Go to <a href="https://github.com/fahimiqbal0099-star/Royal-Zari" target="_blank">GitHub Repository</a></li>
+                        <li><strong>Add to Repository:</strong> Click "images" folder → "Add file" → "Upload files"</li>
+                        <li><strong>Upload Files:</strong> Upload the downloaded images with exact filenames</li>
+                        <li><strong>Commit Changes:</strong> Click "Commit changes" - your website updates automatically!</li>
                     </ol>
+                    <div class="price-note">
+                        <strong>💰 Price Note:</strong> Prices you set here are saved locally. After uploading images to GitHub, your products will display with these prices on the website.
+                    </div>
                     <div class="github-link">
                         <a href="https://github.com/fahimiqbal0099-star/Royal-Zari" target="_blank" class="btn-github">
                             🐙 Go to GitHub Repository
