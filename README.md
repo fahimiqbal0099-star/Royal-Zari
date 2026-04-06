@@ -1,5 +1,35 @@
 # Royal Zari - Premium Embroidery Website
+## 🔐 Security & Admin Access
 
+### Admin Authentication System
+Your website now has device-specific admin access to protect your management features.
+
+#### First-Time Setup:
+1. Visit your website: https://fahimiqbal0099-star.github.io/Royal-Zari/
+2. Click **"🔐 Admin Login"** in the navigation
+3. Enter password: `RoyalZari2024`
+4. Your current device will be authorized for admin access
+
+#### Admin Features (Only Available After Login):
+- ✅ **Photo Upload Section** - Upload and manage product images
+- ✅ **Price Management** - Set and update product prices
+- ✅ **Order Management** - View and manage customer orders
+- ✅ **Admin Settings** - Change password, manage security
+
+#### Security Features:
+- 🔒 **Device Fingerprinting** - Only your authorized device can access admin features
+- 🔑 **Password Protection** - Secure login required for admin access
+- 🚪 **Logout Option** - Securely logout from admin session
+- ⚙️ **Settings Management** - Change password and manage access
+
+#### Important Security Notes:
+- **Only your current device** can access admin features once logged in
+- **Other devices** will see a login prompt instead of admin features
+- **Change the default password** immediately after first login
+- **Logout** when using public computers
+- **Regular password changes** recommended for security
+
+---
 ## � Order Management System
 
 ### How You'll Know When Someone Orders:

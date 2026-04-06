@@ -100,7 +100,7 @@
                     <li><a href="#products">Products</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="#payment">Payment</a></li>
-                    <li><a href="#" onclick="showOrderManagement()" style="color: #ffd700; font-weight: bold;">📋 Orders</a></li>
+                    <li><a href="#" onclick="showOrderManagement()" style="display: none;">📋 Orders</a></li>
                 </ul>
                 <div class="cart-icon-container">
                     <button id="cartBtn" class="cart-btn">
@@ -302,11 +302,11 @@
             </div>
 
             <!-- Product Image Upload Section -->
-            <div class="product-upload-section">
-                <h3>📸 Upload Your Product Images</h3>
-                <p class="upload-instructions">
-                    Upload your product photos here to preview them, then download and upload to GitHub for permanent storage.
-                </p>
+            <div class="product-upload-section" style="display: none;">
+                <h3>🔐 Admin Only: Upload Your Product Images</h3>
+                <div class="security-notice">
+                    <strong>🔒 Security Notice:</strong> This section is only accessible from authorized devices. If you don't see the upload options, please login as admin first.
+                </div>
 
                 <div class="upload-grid">
                     <div class="upload-item">

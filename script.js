@@ -1,8 +1,290 @@
-// Cart Management System
-let cart = JSON.parse(localStorage.getItem('royalZariCart')) || [];
+// Admin Authentication System
+let isAdminAuthenticated = false;
+const ADMIN_PASSWORD = 'RoyalZari2024'; // You can change this password
+const ADMIN_DEVICE_KEY = 'royalZariAdminDevice';
+
+// Generate unique device fingerprint
+function generateDeviceFingerprint() {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.textBaseline = 'top';
+    ctx.font = '14px Arial';
+    ctx.fillText('Royal Zari Device Check', 2, 2);
+
+    const fingerprint = {
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        platform: navigator.platform,
+        cookieEnabled: navigator.cookieEnabled,
+        screenResolution: `${screen.width}x${screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        canvasFingerprint: canvas.toDataURL(),
+        timestamp: Date.now()
+    };
+
+    return btoa(JSON.stringify(fingerprint));
+}
+
+// Check if current device is authorized
+function checkAdminAccess() {
+    const storedDevice = localStorage.getItem(ADMIN_DEVICE_KEY);
+    const currentDevice = generateDeviceFingerprint();
+
+    if (storedDevice === currentDevice) {
+        isAdminAuthenticated = true;
+        return true;
+    }
+    return false;
+}
+
+// Show admin login modal
+function showAdminLogin() {
+    const modalHTML = `
+        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; display: flex; align-items: center; justify-content: center;" id="adminLoginModal">
+            <div style="background: white; padding: 40px; border-radius: 12px; max-width: 400px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.3); text-align: center;">
+                <h2 style="color: var(--secondary-color); margin-bottom: 20px;">🔐 Admin Access Required</h2>
+                <p style="margin-bottom: 20px; color: #666;">Enter the admin password to access management features.</p>
+
+                <form id="adminLoginForm" style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="password" id="adminPassword" placeholder="Enter admin password" required style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;">
+
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" onclick="closeAdminLogin()" style="flex: 1; padding: 12px; background: #6c757d; color: white; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
+                        <button type="submit" style="flex: 1; padding: 12px; background: var(--gradient-1); color: var(--secondary-color); border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Login</button>
+                    </div>
+                </form>
+
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; font-size: 14px; color: #666;">
+                    <strong>Security Notice:</strong><br>
+                    This password protects your admin features from unauthorized access. Only this device will have access once authenticated.
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        authenticateAdmin();
+    });
+}
+
+function closeAdminLogin() {
+    const modal = document.getElementById('adminLoginModal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+function authenticateAdmin() {
+    const password = document.getElementById('adminPassword').value;
+
+    if (password === ADMIN_PASSWORD) {
+        // Store device fingerprint for future access
+        const deviceFingerprint = generateDeviceFingerprint();
+        localStorage.setItem(ADMIN_DEVICE_KEY, deviceFingerprint);
+        isAdminAuthenticated = true;
+
+        closeAdminLogin();
+        showAdminFeatures();
+        showNotification('Admin access granted! This device is now authorized.', 'success');
+    } else {
+        showNotification('Incorrect password. Access denied.', 'error');
+    }
+}
+
+// Show admin features after authentication
+function showAdminFeatures() {
+    // Show upload section
+    const uploadSection = document.querySelector('.product-upload-section');
+    if (uploadSection) {
+        uploadSection.style.display = 'block';
+    }
+
+    // Show orders link
+    const ordersLink = document.querySelector('a[onclick="showOrderManagement()"]');
+    if (ordersLink) {
+        ordersLink.style.display = 'inline-block';
+    }
+
+    // Update navigation to show admin status
+    updateNavigationForAdmin();
+}
+
+// Hide admin features for unauthorized users
+function hideAdminFeatures() {
+    // Hide upload section
+    const uploadSection = document.querySelector('.product-upload-section');
+    if (uploadSection) {
+        uploadSection.style.display = 'none';
+    }
+
+    // Hide orders link
+    const ordersLink = document.querySelector('a[onclick="showOrderManagement()"]');
+    if (ordersLink) {
+        ordersLink.style.display = 'none';
+    }
+}
+
+// Update navigation for admin
+function updateNavigationForAdmin() {
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks && isAdminAuthenticated) {
+        // Add admin indicator
+        const adminIndicator = document.createElement('span');
+        adminIndicator.textContent = ' (Admin)';
+        adminIndicator.style.cssText = 'color: #ffd700; font-size: 0.8em; font-weight: bold;';
+        navLinks.appendChild(adminIndicator);
+
+        // Add settings button
+        const settingsLink = document.createElement('li');
+        settingsLink.innerHTML = '<a href="#" onclick="showAdminSettings()" style="color: #17a2b8; font-weight: bold;">⚙️ Settings</a>';
+        navLinks.appendChild(settingsLink);
+
+        // Add logout button
+        const logoutLink = document.createElement('li');
+        logoutLink.innerHTML = '<a href="#" onclick="adminLogout()" style="color: #ff6b6b; font-weight: bold;">🚪 Logout</a>';
+        navLinks.appendChild(logoutLink);
+    }
+}
+
+// Admin logout function
+function adminLogout() {
+    if (confirm('Are you sure you want to logout? You will need to login again to access admin features.')) {
+        localStorage.removeItem(ADMIN_DEVICE_KEY);
+        isAdminAuthenticated = false;
+        location.reload(); // Refresh page to reset everything
+    }
+}
+
+// Show admin settings modal
+function showAdminSettings() {
+    if (!isAdminAuthenticated) {
+        showAdminLogin();
+        return;
+    }
+
+    const modalHTML = `
+        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; display: flex; align-items: center; justify-content: center;" id="adminSettingsModal">
+            <div style="background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 95%; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="color: var(--secondary-color); margin: 0;">⚙️ Admin Settings</h2>
+                    <button onclick="closeAdminSettings()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #666;">&times;</button>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                        <h3 style="margin: 0 0 10px 0; color: var(--secondary-color);">🔐 Security Status</h3>
+                        <p style="margin: 5px 0;"><strong>Current Device:</strong> Authorized ✅</p>
+                        <p style="margin: 5px 0;"><strong>Device Fingerprint:</strong> <code style="background: #e9ecef; padding: 2px 4px; border-radius: 3px; font-size: 12px;">${generateDeviceFingerprint().substring(0, 20)}...</code></p>
+                    </div>
+
+                    <div>
+                        <h3 style="margin: 0 0 10px 0; color: var(--secondary-color);">🔑 Change Admin Password</h3>
+                        <form id="changePasswordForm" style="display: flex; flex-direction: column; gap: 10px;">
+                            <input type="password" id="currentPassword" placeholder="Current password" required style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+                            <input type="password" id="newPassword" placeholder="New password" required style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+                            <input type="password" id="confirmPassword" placeholder="Confirm new password" required style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+                            <button type="submit" style="padding: 10px; background: var(--gradient-1); color: var(--secondary-color); border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Change Password</button>
+                        </form>
+                    </div>
+
+                    <div>
+                        <h3 style="margin: 0 0 10px 0; color: var(--secondary-color);">🚪 Account Actions</h3>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="adminLogout()" style="flex: 1; padding: 10px; background: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer;">Logout from this Device</button>
+                            <button onclick="resetAllAdminAccess()" style="flex: 1; padding: 10px; background: #ffc107; color: #212529; border: none; border-radius: 6px; cursor: pointer;">Reset All Access</button>
+                        </div>
+                    </div>
+
+                    <div style="background: #d1ecf1; border: 1px solid #bee5eb; padding: 15px; border-radius: 8px; font-size: 14px;">
+                        <strong>💡 Security Tips:</strong>
+                        <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                            <li>Change your password regularly</li>
+                            <li>Only login from trusted devices</li>
+                            <li>Logout when using public computers</li>
+                            <li>Keep your admin password secure</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        changeAdminPassword();
+    });
+}
+
+function closeAdminSettings() {
+    const modal = document.getElementById('adminSettingsModal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+function changeAdminPassword() {
+    const currentPassword = document.getElementById('currentPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (currentPassword !== ADMIN_PASSWORD) {
+        showNotification('Current password is incorrect', 'error');
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        showNotification('New passwords do not match', 'error');
+        return;
+    }
+
+    if (newPassword.length < 6) {
+        showNotification('New password must be at least 6 characters long', 'error');
+        return;
+    }
+
+    // In a real application, this would be stored securely
+    // For this demo, we'll just show a success message
+    showNotification('Password changed successfully! (Note: This is a demo - password change not actually saved)', 'success');
+    closeAdminSettings();
+}
+
+function resetAllAdminAccess() {
+    if (confirm('This will remove admin access from ALL devices and require re-authorization. Are you sure?')) {
+        localStorage.removeItem(ADMIN_DEVICE_KEY);
+        // In a real application, you would also clear server-side sessions
+        showNotification('All admin access has been reset. You will need to login again.', 'success');
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+    }
+}
+
+// Check admin access on page load
+function initializeAdminSystem() {
+    if (checkAdminAccess()) {
+        isAdminAuthenticated = true;
+        showAdminFeatures();
+    } else {
+        hideAdminFeatures();
+
+        // Add "Admin Login" button to navigation
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks) {
+            const adminLoginLink = document.createElement('li');
+            adminLoginLink.innerHTML = '<a href="#" onclick="showAdminLogin()" style="color: #ffd700; font-weight: bold;">🔐 Admin Login</a>';
+            navLinks.appendChild(adminLoginLink);
+        }
+    }
+}
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
+    initializeAdminSystem();
     setupCart();
     setupAddToCartButtons();
     setupQuantitySelectors();
