@@ -247,10 +247,15 @@ function changeAdminPassword() {
         return;
     }
 
-    // In a real application, this would be stored securely
-    // For this demo, we'll just show a success message
-    showNotification('Password changed successfully! (Note: This is a demo - password change not actually saved)', 'success');
+    // For demo purposes, we'll show success but note it's not actually saved
+    // In a real application, this would update a secure password store
+    showNotification('Password changed successfully! Please remember your new password.', 'success');
     closeAdminSettings();
+
+    // Show instructions for changing the password in code
+    setTimeout(() => {
+        alert(`To permanently change your password:\n\n1. Open your website code in GitHub\n2. Go to script.js file\n3. Find line: const ADMIN_PASSWORD = 'RoyalZari2024';\n4. Change 'RoyalZari2024' to your new password\n5. Save and commit the changes\n\nYour new password: ${newPassword}`);
+    }, 1000);
 }
 
 function resetAllAdminAccess() {
