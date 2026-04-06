@@ -118,6 +118,25 @@ body {
     font-style: italic;
 }
 
+.hero-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.keyword {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
 /* About Section */
 .about {
     padding: 60px 20px;
@@ -135,8 +154,20 @@ body {
     font-size: 1.1rem;
     line-height: 1.8;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0 auto 1.5rem auto;
     text-align: center;
+}
+
+.about-keywords {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.about-keywords span {
+    margin: 0 0.5rem;
 }
 
 /* Products Section */
